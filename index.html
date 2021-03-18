@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Cart</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <section>
+        <div class="container">
+            <div class="cart">
+                <div class="col-md-12 col-lg-10 mx-auto">
+                    <div class="cart-item" id="firstCart">
+                        <div class="row">
+                            <div class="col-md-7 center-item">
+                                <img src="images/product-1.png" alt="">
+                                <h5>iPhone 11 128GB Black</h5>
+                            </div>
+
+                            <div class="col-md-5 center-item">
+                                <div class="input-group number-spinner">
+                                    <button class="btn btn-default"><i id="firstMinus" class="fas fa-minus"></i></button>
+                                    <input type="text" id="plusOne" class="form-control text-center" value="1">
+                                    <button class="btn btn-default"><i id="firstPlusBtn" class="fas fa-plus"></i></button>
+                                </div>
+                                <h5>$ <span id="firstPrice">1200</span> </h5>
+                                <img id="mobile" src="images/remove.png" alt="" class="remove-item">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="secondCart" class="cart-item">
+                        <div class="row">
+                            <div class="col-md-7 center-item mx-auto">
+                                <img src="images/product-2.png" alt="">
+                                <h5>iPhone 11 Silicone Case - Black</h5>
+                            </div>
+                            <div class="col-md-5 center-item">
+                                <div class="input-group number-spinner">
+                                    <button class="btn btn-default"><i id="secondMinus" class="fas fa-minus"></i></button>
+                                    <input type="text" id="plusTwo" class="form-control text-center" value="1">
+                                    <button class="btn btn-default"><i id="secondPlusBtn" class="fas fa-plus"></i></button>
+
+                                </div>
+                                <h5>$ <span id="secondPrice">50</span></h5>
+                                <img id="cover" src="images/remove.png" alt="" class="remove-item">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <h5>Subtotal: </h5>
+                                <h5>Tax:</h5>
+                                <h5>Total:</h5>
+                            </div>
+
+                            <div class="col-md-4 status">
+                                <h5>$<span id="subTotalPrice">1,250</span></h5>
+                                <h5>$<span id="tax">0</span></h5>
+                                <h5>$ <span id="totalPrice">1,250</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-4 pb-4">
+                        <button type="button" class="btn btn-success check-out">Check Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        //  first cart add
+        const firstPlusBtn = document.getElementById('firstPlusBtn');
+        firstPlusBtn.addEventListener('click', function() {
+                //   add number 
+                const plusOne = document.getElementById('plusOne').value;
+                const plusOneNum = parseFloat(plusOne);
+                document.getElementById('plusOne').value = plusOneNum + 1;
+                // add price 
+                const firstPrice = document.getElementById('firstPrice').innerText;
+                const firstPriceNum = parseFloat(firstPrice);
+                document.getElementById('firstPrice').innerText = firstPriceNum + 1200;
+
+                total();
+            })
+            // first cart minus 
+        const firstMinusBtn = document.getElementById('firstMinus');
+        firstMinusBtn.addEventListener('click', function() {
+                const plusOne = document.getElementById('plusOne').value;
+                const plusOneNum = parseFloat(plusOne);
+                if (plusOneNum > 0) {
+                    document.getElementById('plusOne').value = plusOneNum - 1;
+
+                    const firstPrice = document.getElementById('firstPrice').innerText;
+                    const firstPriceNum = parseFloat(firstPrice);
+                    document.getElementById('firstPrice').innerText = firstPriceNum - 1200;
+                }
+                total();
+            })
+            //   second cart
+        const secondPlusBtn = document.getElementById('secondPlusBtn');
+        secondPlusBtn.addEventListener('click', function() {
+                //   add Number 
+                const plusTwo = document.getElementById("plusTwo").value;
+                const plusTwoNum = parseInt(plusTwo);
+                const addPlusTwo = plusTwoNum + 1;
+                document.getElementById("plusTwo").value = addPlusTwo;
+                // add price 
+                const secondPrice = document.getElementById('secondPrice').innerText;
+                const secondPriceNum = parseFloat(secondPrice);
+                const addSecondPrice = secondPriceNum + 50;
+                document.getElementById('secondPrice').innerText = addSecondPrice;
+
+                total();
+
+            })
+            // second cart minus 
+        const secondMinusBtn = document.getElementById('secondMinus');
+        secondMinusBtn.addEventListener('click', function() {
+                const plusTwo = document.getElementById('plusTwo').value;
+                const plusTwoNum = parseFloat(plusTwo);
+                if (plusTwoNum > 0) {
+                    document.getElementById('plusTwo').value = plusTwoNum - 1;
+
+                    const secondPrice = document.getElementById('secondPrice').innerText;
+                    const secondPriceNum = parseFloat(secondPrice);
+                    const addSecondPrice = secondPriceNum - 50;
+                    document.getElementById('secondPrice').innerText = addSecondPrice;
+                }
+                total();
+            })
+            //   total  add 
+        function total() {
+            const plusOne = document.getElementById('plusOne').value;
+            const plusOneNum = parseInt(plusOne);
+
+            const plusTwo = document.getElementById("plusTwo").value;
+            const plusTwoNum = parseInt(plusTwo);
+            // subtotal 
+            const totalRate = plusOneNum * 1200 + plusTwoNum * 50;
+            document.getElementById('subTotalPrice').innerText = totalRate;
+            // tax 
+            const tax = totalRate * 0.1;
+            document.getElementById('tax').innerText = tax;
+            // totalPrice 
+            const totalPrice = totalRate + tax;
+            document.getElementById('totalPrice').innerText = totalPrice;
+        }
+        //   first cart remove 
+        const mobileCart = document.getElementById('mobile');
+        mobileCart.addEventListener('click', function() {
+                const firstCart = document.getElementById("firstCart");
+                firstCart.style.display = 'none';
+            })
+            //   second cart remove 
+        const coverCart = document.getElementById('cover');
+        coverCart.addEventListener('click', function() {
+            const secondCart = document.getElementById("secondCart");
+            secondCart.style.display = 'none';
+        })
+    </script>
+</body>
+
+</html>
